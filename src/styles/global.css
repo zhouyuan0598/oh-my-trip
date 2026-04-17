@@ -1,0 +1,89 @@
+:root {
+  --bg: #07131a;
+  --bg-soft: #102633;
+  --surface: rgba(11, 25, 35, 0.78);
+  --surface-strong: #122d3b;
+  --surface-light: rgba(233, 226, 209, 0.08);
+  --text: #f6f1e8;
+  --text-muted: rgba(246, 241, 232, 0.72);
+  --line: rgba(255, 255, 255, 0.08);
+  --gold: #d9b26d;
+  --coral: #db785f;
+  --mint: #93c7bb;
+  --max-width: 1180px;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: "Noto Sans SC", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(217, 178, 109, 0.15), transparent 32%),
+    linear-gradient(180deg, #081118 0%, #0f2430 46%, #07131a 100%);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.76rem;
+  color: var(--mint);
+}
+
+.section {
+  width: min(var(--max-width), calc(100% - 32px));
+  margin: 0 auto;
+  padding: 5rem 0;
+}
+
+.section__heading {
+  max-width: 760px;
+  margin-bottom: 2rem;
+}
+
+.section__heading h2,
+.guide-section__heading h2,
+.hero h1,
+.guide-hero h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 0.02em;
+}
+
+.section__heading h2,
+.guide-section__heading h2 {
+  font-size: clamp(2.1rem, 5vw, 3.6rem);
+}
+
+.section__heading p:not(.eyebrow),
+.guide-section__subtitle,
+.hero__summary {
+  color: var(--text-muted);
+}
+
+@media (max-width: 720px) {
+  .section {
+    width: min(var(--max-width), calc(100% - 24px));
+    padding: 4rem 0;
+  }
+}

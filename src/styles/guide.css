@@ -1,0 +1,305 @@
+.guide-hero {
+  position: relative;
+  min-height: min(96vh, 920px);
+  display: flex;
+  align-items: flex-end;
+  padding: 1.25rem 0 3.5rem;
+  background:
+    linear-gradient(180deg, rgba(4, 10, 14, 0.1) 0%, rgba(4, 10, 14, 0.78) 100%),
+    var(--guide-cover) center / cover no-repeat;
+}
+
+.guide-hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(217, 178, 109, 0.24), transparent 34%),
+    linear-gradient(135deg, rgba(7, 19, 26, 0.2), rgba(7, 19, 26, 0.74));
+}
+
+.guide-back,
+.guide-hero__content,
+.guide-section {
+  position: relative;
+  z-index: 1;
+  width: min(var(--max-width), calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.guide-back {
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px);
+}
+
+.guide-hero__content {
+  padding-top: 8rem;
+}
+
+.guide-hero h1 {
+  max-width: 10ch;
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  line-height: 0.95;
+}
+
+.guide-hero__subtitle {
+  margin: 1rem 0 1.5rem;
+  max-width: 44rem;
+  color: #f7ead2;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+}
+
+.guide-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.guide-hero__meta span {
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.guide-section {
+  padding: 4.5rem 0;
+}
+
+.guide-section--alt {
+  background: rgba(255, 255, 255, 0.03);
+  width: 100%;
+  padding-left: calc((100% - min(var(--max-width), calc(100% - 32px))) / 2);
+  padding-right: calc((100% - min(var(--max-width), calc(100% - 32px))) / 2);
+}
+
+.guide-section--alt .guide-section__heading,
+.guide-section--alt .entry-stack {
+  width: min(var(--max-width), calc(100% - 32px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.guide-section__heading {
+  max-width: 760px;
+  margin-bottom: 2rem;
+}
+
+.guide-section__subtitle {
+  margin-top: 0.75rem;
+}
+
+.overview-list,
+.entry-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.overview-card,
+.schedule-row,
+.spot-card,
+.notes-panel,
+.planning-card {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+}
+
+.overview-card {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1rem;
+  padding: 1.2rem;
+  align-items: center;
+}
+
+.overview-card__day {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 88px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(147, 199, 187, 0.3), rgba(217, 178, 109, 0.22));
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.75rem;
+}
+
+.overview-card__date {
+  margin: 0 0 0.35rem;
+  color: var(--mint);
+}
+
+.schedule-row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  align-items: start;
+}
+
+.schedule-row__time {
+  color: #f3dfba;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.schedule-row__body h3,
+.spot-card__body h3 {
+  margin: 0 0 0.5rem;
+}
+
+.schedule-row__body p,
+.spot-card__description,
+.notes-panel p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.85;
+}
+
+.spot-card {
+  overflow: hidden;
+}
+
+.spot-card__image {
+  aspect-ratio: 16 / 8;
+}
+
+.spot-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spot-card__body {
+  padding: 1.4rem;
+}
+
+.spot-card__list {
+  margin: 1rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--text);
+}
+
+.spot-card__list li + li {
+  margin-top: 0.5rem;
+}
+
+.spot-card--featured {
+  border-color: rgba(217, 178, 109, 0.3);
+  background: linear-gradient(180deg, rgba(217, 178, 109, 0.09), rgba(255, 255, 255, 0.04));
+}
+
+.guide-section--notes {
+  padding-bottom: 5rem;
+}
+
+.notes-panel {
+  padding: 1.5rem;
+}
+
+.notes-panel p + p {
+  margin-top: 0.9rem;
+}
+
+.planning-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.planning-card {
+  padding: 1.4rem;
+}
+
+.planning-card--wide {
+  grid-column: span 2;
+}
+
+.planning-card h3 {
+  margin: 0 0 0.9rem;
+}
+
+.planning-card p {
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.planning-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.planning-chip-list span {
+  padding: 0.65rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(217, 178, 109, 0.24);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f3dfba;
+}
+
+.planning-source-list {
+  display: grid;
+  gap: 0.75rem;
+  padding-left: 1rem;
+}
+
+.planning-source-list li span,
+.planning-source-list li strong {
+  display: block;
+}
+
+.guide-empty {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .guide-back,
+  .guide-hero__content,
+  .guide-section,
+  .guide-section--alt .guide-section__heading,
+  .guide-section--alt .entry-stack {
+    width: min(var(--max-width), calc(100% - 24px));
+  }
+
+  .guide-hero {
+    min-height: 78vh;
+    padding-bottom: 2rem;
+  }
+
+  .guide-hero__content {
+    padding-top: 7rem;
+  }
+
+  .guide-hero h1 {
+    font-size: clamp(2.8rem, 14vw, 4.6rem);
+  }
+
+  .overview-card,
+  .schedule-row,
+  .planning-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .planning-card--wide {
+    grid-column: auto;
+  }
+
+  .guide-section--alt {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

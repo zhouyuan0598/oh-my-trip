@@ -1,0 +1,8 @@
+node_modules
+dist
+playwright-report
+test-results
+.idea
+.omx
+.DS_Store
+.env.local

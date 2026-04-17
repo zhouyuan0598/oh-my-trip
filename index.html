@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oh-my-trip</title>
+    <meta
+      name="description"
+      content="oh-my-trip 是周源的个人旅行操作系统，用来沉淀旅行偏好、生成更像你的攻略页面，并把每一站都变成可分享的移动端作品。"
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="/src/styles/global.css">
+    <link rel="stylesheet" href="/src/styles/home.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero__glow hero__glow--left"></div>
+        <div class="hero__glow hero__glow--right"></div>
+        <nav class="topbar">
+          <a class="brand" href="/">oh-my-trip</a>
+          <div class="topbar__actions">
+            <a class="topbar__link topbar__link--strong" href="/planner/" data-testid="planner-nav-link">开始规划</a>
+            <a class="topbar__link" href="#collection">查看历史</a>
+          </div>
+        </nav>
+        <div class="hero__inner">
+          <p class="eyebrow">Mobile travel planner</p>
+          <p class="hero__brand-kicker">oh-my-trip</p>
+          <h1>像聊天一样，3 步生成你的旅行方案。</h1>
+          <p class="hero__summary">
+            先填关键条件，再微调偏好，最后选一个最合适的方案发布为分享页。全程面向手机使用，不需要复杂操作。
+          </p>
+          <div class="hero__chips" id="profile-chips"></div>
+          <div class="hero__cta">
+            <a class="hero__button hero__button--primary" href="/planner/" data-testid="planner-cta">开始规划下一趟旅程</a>
+            <a class="hero__button hero__button--ghost" href="#collection">先看历史旅程</a>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="section launchpad">
+          <div class="section__heading">
+            <p class="eyebrow">流程很简单</p>
+            <h2>输入条件 → 比较 3 个方案 → 一键发布</h2>
+            <p>你只需要做选择，不需要在一堆信息里自己拼攻略。</p>
+          </div>
+          <div class="launchpad-card">
+            <div>
+              <p class="eyebrow">Why this works</p>
+              <h3>推荐理由清晰、可调整、可回看。</h3>
+              <p>每次发布都会保留在首页，下一次规划会更懂你的偏好。</p>
+            </div>
+            <a class="hero__button hero__button--primary" href="/planner/">去规划页</a>
+          </div>
+        </section>
+
+        <section class="section manifesto" id="manifesto">
+          <div class="section__heading">
+            <p class="eyebrow">你的偏好画像</p>
+            <h2>系统会记住你怎么旅行。</h2>
+          </div>
+          <div class="manifesto__grid" id="manifesto-grid"></div>
+        </section>
+
+        <section class="section collection" id="collection">
+          <div class="section__heading">
+            <p class="eyebrow">已发布旅程</p>
+            <h2>每次生成都会沉淀成可回看的作品。</h2>
+            <p>最新生成内容会排在最前，方便你快速回看与分享。</p>
+          </div>
+          <div class="trip-grid" id="trip-grid"></div>
+        </section>
+
+        <section class="section workflow">
+          <div class="section__heading">
+            <p class="eyebrow">System workflow</p>
+            <h2>以后新增一个城市，应该像发新作品，不像重做项目。</h2>
+          </div>
+          <div class="workflow__steps">
+            <article>
+              <span>01</span>
+              <h3>补偏好与约束</h3>
+              <p>先写清这次同伴、节奏、预算、时间窗、拍照诉求和交通偏好。</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>生成 planDraft 并比较方案</h3>
+              <p>先比较路线、交通和住宿区域，再把确认结果映射成最终分享页所需的 trip 数据。</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>复用同一套视觉系统</h3>
+              <p>共享布局、动效和移动端适配，只替换目的地气质和内容密度。</p>
+            </article>
+          </div>
+          <p class="workflow__note">
+            新页面写法见 <a href="/templates/trip-template.md">templates/trip-template.md</a>。
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/src/scripts/home.js"></script>
+  </body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>规划你的下一趟旅程 | oh-my-trip</title>
+    <meta
+      name="description"
+      content="输入目的地、预算、日期和偏好约束，生成可比较的路线方案，并把确认后的方案发布成可分享页面。"
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="/src/styles/global.css">
+    <link rel="stylesheet" href="/src/styles/planner.css">
+  </head>
+  <body>
+    <main class="planner-shell">
+      <header class="planner-hero">
+        <div class="planner-hero__content">
+          <a class="planner-back" href="/">返回首页</a>
+          <p class="eyebrow">Mobile-first planner</p>
+          <h1>先填关键条件，再选最合适的方案。</h1>
+          <p class="planner-hero__summary">
+            你只需要先确认必须信息，再做偏好微调。系统会给出 3 个可比较方案，供你选择一个发布分享页。
+          </p>
+          <div class="planner-hero__memory" id="profile-summary"></div>
+          <div class="draft-recovery is-hidden" id="draft-recovery">
+            <div>
+              <p class="eyebrow">检测到未完成草稿</p>
+              <h2 id="draft-recovery-title">继续上次规划</h2>
+              <p id="draft-recovery-meta">你可以继续上次进度，也可以清空后重新开始。</p>
+            </div>
+            <div class="draft-recovery__actions">
+              <button type="button" class="button button--ghost" id="draft-reset" data-testid="draft-reset">清空重来</button>
+              <button type="button" class="button button--primary" id="draft-continue" data-testid="draft-continue">继续草稿</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="planner-layout">
+        <form class="planner-form" id="planner-form" novalidate>
+          <div class="planner-stepper">
+            <button class="planner-stepper__item is-active" type="button" id="step-tab-1">1. 必填信息</button>
+            <button class="planner-stepper__item" type="button" id="step-tab-2">2. 偏好微调</button>
+          </div>
+
+          <section class="planner-panel" data-step="1">
+            <div class="planner-panel__heading">
+              <p class="eyebrow">Step 1</p>
+              <h2>这趟旅程的硬条件</h2>
+              <p>先填这些，系统才能给你可比较的路线。</p>
+            </div>
+            <div class="quick-templates">
+              <p>快捷模板</p>
+              <div class="quick-templates__row">
+                <button type="button" class="quick-templates__chip" data-template="weekend-city">周末城市松弛线</button>
+                <button type="button" class="quick-templates__chip" data-template="photo-night">拍照夜景内容线</button>
+                <button type="button" class="quick-templates__chip" data-template="family-safe">多人稳妥省心线</button>
+              </div>
+            </div>
+            <div class="planner-grid">
+              <label>
+                <span>目的地</span>
+                <input data-testid="destination-input" name="destination" type="text" placeholder="例如：杭州" required>
+              </label>
+              <label>
+                <span>出发地</span>
+                <input name="origin" type="text" placeholder="例如：上海" required>
+              </label>
+              <label>
+                <span>出行天数</span>
+                <input name="days" type="number" min="1" max="10" value="2" required>
+              </label>
+              <label>
+                <span>出行人数</span>
+                <input name="partySize" type="number" min="1" max="10" value="2" required>
+              </label>
+              <label>
+                <span>预算下限（元）</span>
+                <input name="budgetMin" type="number" min="500" step="100" value="3000" required>
+              </label>
+              <label>
+                <span>预算上限（元）</span>
+                <input name="budgetMax" type="number" min="500" step="100" value="4500" required>
+              </label>
+              <label>
+                <span>出行日期</span>
+                <input name="travelDate" type="date" required>
+              </label>
+              <label>
+                <span>风险偏好</span>
+                <select name="riskPreference" required>
+                  <option value="">请选择</option>
+                  <option value="balanced">平衡型</option>
+                  <option value="cautious">稳妥型</option>
+                  <option value="exploratory">探索型</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="planner-panel is-hidden" data-step="2">
+            <div class="planner-panel__heading">
+              <p class="eyebrow">Step 2</p>
+              <h2>偏好微调（可选）</h2>
+              <p>不填也能生成，填写后推荐会更像你。</p>
+            </div>
+            <div class="planner-grid planner-grid--single">
+              <fieldset>
+                <legend>交通偏好</legend>
+                <div class="option-row">
+                  <label><input name="transportBias" type="checkbox" value="high-speed-rail"> 高铁</label>
+                  <label><input name="transportBias" type="checkbox" value="self-drive"> 自驾</label>
+                  <label><input name="transportBias" type="checkbox" value="flight"> 飞机</label>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>行程节奏</legend>
+                <div class="option-row">
+                  <label><input name="pace" type="radio" value="relaxed"> 松弛</label>
+                  <label><input name="pace" type="radio" value="moderate" checked> 适中</label>
+                  <label><input name="pace" type="radio" value="packed"> 紧凑</label>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>兴趣偏好</legend>
+                <div class="option-row">
+                  <label><input name="interests" type="checkbox" value="scenery"> 风景</label>
+                  <label><input name="interests" type="checkbox" value="city-walk"> 漫步</label>
+                  <label><input name="interests" type="checkbox" value="humanities"> 人文</label>
+                  <label><input name="interests" type="checkbox" value="food"> 美食</label>
+                  <label><input name="interests" type="checkbox" value="night-view"> 夜景</label>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>酒店风格</legend>
+                <div class="option-row">
+                  <label><input name="hotelStyle" type="checkbox" value="good-location"> 位置顺手</label>
+                  <label><input name="hotelStyle" type="checkbox" value="atmospheric"> 有氛围</label>
+                  <label><input name="hotelStyle" type="checkbox" value="mid-high"> 中高档</label>
+                  <label><input name="hotelStyle" type="checkbox" value="easy-going"> 省心即可</label>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>明确回避项</legend>
+                <div class="option-row">
+                  <label><input data-testid="avoid-night-driving" name="avoidRules" type="checkbox" value="night-driving"> 夜间驾驶</label>
+                  <label><input name="avoidRules" type="checkbox" value="overpacked-schedule"> 过密赶路</label>
+                  <label><input name="avoidRules" type="checkbox" value="over-commercial"> 过度商业化</label>
+                </div>
+              </fieldset>
+            </div>
+          </section>
+
+          <div class="planner-feedback">
+            <p class="planner-status" id="planner-status">先填写必填信息，下一步再做偏好微调。</p>
+            <p class="planner-error" id="planner-error" role="alert"></p>
+          </div>
+        </form>
+
+        <section class="planner-results">
+          <div class="planner-panel">
+            <div class="planner-panel__heading">
+              <p class="eyebrow">Step 3</p>
+              <h2>候选方案</h2>
+              <p>先看结论，再按需展开细节。</p>
+            </div>
+            <div class="source-brief is-hidden" id="source-brief"></div>
+            <div class="selection-banner" id="selection-banner"></div>
+            <div class="option-diff is-hidden" id="option-diff"></div>
+            <div class="option-stack" id="option-stack"></div>
+            <div class="publish-success is-hidden" id="publish-success">
+              <h3>发布完成</h3>
+              <p id="publish-success-copy">这份行程已经生成分享页，你可以继续预览或回首页看列表。</p>
+              <div class="publish-success__actions">
+                <a class="button button--primary" id="view-published-guide" data-testid="view-published-guide" href="/">查看分享页</a>
+                <a class="button button--ghost" href="/" data-testid="back-home-after-publish">返回首页</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="publish-confirm is-hidden" id="publish-confirm">
+        <p class="eyebrow">发布确认</p>
+        <h3 id="publish-confirm-title">确认发布当前方案？</h3>
+        <p id="publish-confirm-copy">发布后会生成一个可分享页面，首页会自动出现最新卡片。</p>
+        <div class="publish-confirm__actions">
+          <button type="button" class="button button--ghost" id="cancel-publish">再看看</button>
+          <button type="button" class="button button--primary" id="confirm-publish-button" data-testid="confirm-publish-button">确认发布</button>
+        </div>
+      </section>
+
+      <div class="planner-sticky">
+        <button type="button" class="button button--ghost is-hidden" id="back-step">上一步</button>
+        <button type="button" class="button button--ghost is-hidden" id="refine-button">重新生成</button>
+        <button data-testid="generate-button" type="button" class="button button--primary" id="step-cta">继续到偏好</button>
+        <button data-testid="publish-button" type="button" class="button button--primary is-hidden" id="publish-button" disabled>发布分享页</button>
+      </div>
+    </main>
+
+    <script type="module" src="/src/scripts/planner.js"></script>
+  </body>
+</html>
