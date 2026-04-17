@@ -5,10 +5,15 @@ export const PLAN_DRAFT_STORAGE_KEY = "oh-my-trip/plan-draft";
 export const PREFERENCE_PROFILE_STORAGE_KEY = "oh-my-trip/preference-profile";
 
 const fallbackStorage = new Map();
+const BASE_URL = import.meta.env.BASE_URL || "/";
+function withBase(path) {
+  const normalizedPath = String(path || "").replace(/^\/+/, "");
+  return `${BASE_URL}${normalizedPath}`;
+}
 const heroImages = [
-  "/guides/nanjing/assets/hero-bg.jpg",
-  "/guides/nanjing/assets/fuzimiao.jpg",
-  "/guides/nanjing/assets/xuanwuhu.jpg",
+  withBase("guides/nanjing/assets/hero-bg.jpg"),
+  withBase("guides/nanjing/assets/fuzimiao.jpg"),
+  withBase("guides/nanjing/assets/xuanwuhu.jpg"),
 ];
 
 const optionBlueprints = [
@@ -673,7 +678,7 @@ export function buildTripFromSelection(planDraft, selectedOption, profile, selec
 
   return {
     slug,
-    guidePath: `/guides/generated/?trip=${slug}`,
+    guidePath: `${withBase("guides/generated/")}?trip=${slug}`,
     sourcePlanId: planDraft.id,
     sourceOptionId: selectedOption.id,
     city: planDraft.destination.city,
@@ -723,7 +728,15 @@ export function saveGeneratedTrip(trip) {
 }
 
 export function getPublishedTrips() {
-  return [...loadGeneratedTrips(), ...trips];
+  return [...loadGeneratedTrips(), ...trips].map((trip) => ({
+    ...trip,
+    coverImage: String(trip.coverImage || "").startsWith("http") ? trip.coverImage : withBase(trip.coverImage || ""),
+    guidePath: trip.guidePath
+      ? String(trip.guidePath).startsWith("http") || String(trip.guidePath).startsWith(BASE_URL)
+        ? trip.guidePath
+        : withBase(trip.guidePath)
+      : `${withBase("guides/")}${trip.slug}/`,
+  }));
 }
 
 export function findPublishedTrip(slug) {

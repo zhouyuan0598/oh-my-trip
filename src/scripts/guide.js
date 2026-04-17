@@ -1,6 +1,7 @@
 import { findPublishedTrip } from "../data/planner.js";
 
 const app = document.querySelector("#guide-app");
+const baseUrl = import.meta.env.BASE_URL || "/";
 const url = new URL(window.location.href);
 const slug = url.searchParams.get("trip") || window.location.pathname.split("/").filter(Boolean).at(-1);
 const trip = findPublishedTrip(slug);
@@ -9,7 +10,7 @@ if (!trip) {
   app.innerHTML = `
     <section class="guide-empty">
       <p>未找到这个目的地。</p>
-      <a href="/">返回 oh-my-trip</a>
+      <a href="${baseUrl}">返回 oh-my-trip</a>
     </section>
   `;
 } else {
@@ -18,7 +19,7 @@ if (!trip) {
   app.innerHTML = `
     <header class="guide-hero" style="--guide-cover:url('${trip.coverImage}')">
       <div class="guide-hero__veil"></div>
-      <a class="guide-back" href="/">返回合集</a>
+      <a class="guide-back" href="${baseUrl}">返回合集</a>
       <div class="guide-hero__content">
         <p class="eyebrow">${trip.theme}</p>
         <h1>${trip.title}</h1>

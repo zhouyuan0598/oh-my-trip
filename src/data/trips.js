@@ -1,3 +1,10 @@
+const BASE_URL = import.meta.env.BASE_URL || "/";
+
+function withBase(path) {
+  const normalizedPath = String(path || "").replace(/^\/+/, "");
+  return `${BASE_URL}${normalizedPath}`;
+}
+
 export const travelProfile = {
   headline: [
     "oh-my-trip 品牌化生成",
@@ -42,7 +49,7 @@ export const trips = [
     companion: "2人同行",
     duration: "2天1晚",
     theme: "古都漫游",
-    coverImage: "/guides/nanjing/assets/hero-bg.jpg",
+    coverImage: withBase("guides/nanjing/assets/hero-bg.jpg"),
     cardSummary:
       "从钟山风景区到秦淮夜色，再到鸡鸣寺与玄武湖，把南京最适合周末沉浸的节奏浓缩成两天。",
     highlights: ["历史底色浓", "夜景强", "高铁友好"],
@@ -61,7 +68,7 @@ export const trips = [
           {
             type: "spot",
             title: "中山陵",
-            image: "/guides/nanjing/assets/zhongshanling.jpg",
+            image: withBase("guides/nanjing/assets/zhongshanling.jpg"),
             description: "孙中山先生陵墓，中国近代建筑史上的杰作。392级台阶拾级而上，俯瞰金陵城景。",
             meta: ["免费（需预约）", "2-3小时", "钟山风景区"],
             bullets: ["祭堂：中山先生坐像，庄严肃穆", "音乐台：白鸽飞翔，建筑精美", "流徽榭：湖光山色，休憩佳处"],
@@ -70,7 +77,7 @@ export const trips = [
           {
             type: "spot",
             title: "明孝陵",
-            image: "/guides/nanjing/assets/mingxiaoling.jpg",
+            image: withBase("guides/nanjing/assets/mingxiaoling.jpg"),
             description: "明太祖朱元璋陵墓，世界文化遗产。神道石象路与春日梅花，是南京极具代表性的历史风景。",
             meta: ["70元", "2小时", "钟山风景区"],
             bullets: ["石象路：神道石刻，古朴庄严", "梅花山：春季赏梅胜地", "方城明楼：登高望远"],
@@ -81,7 +88,7 @@ export const trips = [
             type: "spot",
             featured: true,
             title: "夫子庙 · 秦淮河",
-            image: "/guides/nanjing/assets/fuzimiao.jpg",
+            image: withBase("guides/nanjing/assets/fuzimiao.jpg"),
             description: "十里秦淮在夜里最完整。灯火、画舫、古桥和江南贡院，把这趟南京行的情绪值直接拉满。",
             meta: ["街区免费", "3-4小时", "秦淮区贡院街"],
             bullets: ["画舫夜游：两岸灯火，桨声灯影", "江南贡院：科举文化，历史厚重", "乌衣巷：旧时王谢堂前燕"],
@@ -97,7 +104,7 @@ export const trips = [
           {
             type: "spot",
             title: "鸡鸣寺",
-            image: "/guides/nanjing/assets/jimingsi.jpg",
+            image: withBase("guides/nanjing/assets/jimingsi.jpg"),
             description: "南朝古寺与春日樱花相遇，是南京最容易拍出氛围感的一站。",
             meta: ["10元", "1小时", "玄武区鸡鸣寺路"],
             bullets: ["药师佛塔：登塔远眺，玄武湖景", "樱花大道：春季赏樱胜地", "素面馆：适合短暂停留补给"],
@@ -105,7 +112,7 @@ export const trips = [
           {
             type: "spot",
             title: "玄武湖",
-            image: "/guides/nanjing/assets/xuanwuhu.jpg",
+            image: withBase("guides/nanjing/assets/xuanwuhu.jpg"),
             description: "湖景、城墙和城市天际线并置，适合把第二天节奏从古寺切到开阔松弛。",
             meta: ["免费", "2小时", "玄武区玄武巷"],
             bullets: ["环洲烟柳：适合慢走", "明城墙：登高看古今交融", "樱洲花海：春季视觉效果强"],
@@ -114,7 +121,7 @@ export const trips = [
           {
             type: "spot",
             title: "老门东",
-            image: "/guides/nanjing/assets/laomendong.jpg",
+            image: withBase("guides/nanjing/assets/laomendong.jpg"),
             description: "比夫子庙更适合白天闲逛，保留南京老城肌理，也能兼顾小吃与拍照。",
             meta: ["街区免费", "2小时", "秦淮区箍桶巷"],
             bullets: ["老城南街巷：适合漫步", "小馆与茶饮：补充休息点", "文创与小店：适合带点伴手礼"],
